@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS partners (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    address TEXT NOT NULL,
+    phone VARCHAR(20),
+    is_active BOOLEAN DEFAULT TRUE
+);

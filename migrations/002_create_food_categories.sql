@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS food_categories (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL
+);
