@@ -5,10 +5,11 @@ import "errors"
 // Error dasar yang dipakai lintas layer.
 // Handler HTTP memetakan error ini ke status code yang sesuai.
 var (
-	ErrInvalid   = errors.New("input tidak valid")
-	ErrForbidden = errors.New("akses ditolak")
-	ErrNotFound  = errors.New("data tidak ditemukan")
-	ErrConflict  = errors.New("data bertentangan dengan kondisi saat ini")
+	ErrInvalid      = errors.New("input tidak valid")
+	ErrUnauthorized = errors.New("autentikasi gagal")
+	ErrForbidden    = errors.New("akses ditolak")
+	ErrNotFound     = errors.New("data tidak ditemukan")
+	ErrConflict     = errors.New("data bertentangan dengan kondisi saat ini")
 )
 
 // DomainError membawa pesan yang aman ditampilkan ke client.
