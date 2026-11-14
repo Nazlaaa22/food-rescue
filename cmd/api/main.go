@@ -4,6 +4,9 @@ import (
 	"log"
 
 	"food-rescue/config"
+	delivery "food-rescue/internal/delivery/http"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
@@ -18,5 +21,10 @@ func main() {
 	defer db.Close()
 
 	log.Println("Berhasil terhubung ke PostgreSQL!")
-	log.Println("Food Rescue API berhasil dijalankan.")
+
+	app := fiber.New()
+	delivery.SetupRouter(app, cfg, db)
+
+	log.Printf("Food Rescue API berjalan di port %s", cfg.AppPort)
+	log.Fatal(app.Listen(":" + cfg.AppPort))
 }
