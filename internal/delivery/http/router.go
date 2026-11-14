@@ -29,5 +29,12 @@ func SetupRouter(app *fiber.App, cfg *config.Config, db *sql.DB) {
 	RegisterDonationRoutes(app, auth, verified, donationUC)
 	RegisterPickupRoutes(app, auth, verified, pickupUC)
 
-	// ===== Orang 3: partners, distributions, stats (tambahkan di sini) =====
+	// ===== Orang 3: partners, distributions, stats =====
+	partnerUC := usecase.NewPartnerUsecase(repository.NewPartnerRepository(db))
+	distributionUC := usecase.NewDistributionUsecase(repository.NewDistributionRepository(db))
+	statsUC := usecase.NewStatsUsecase(repository.NewStatsRepository(db))
+
+	RegisterPartnerRoutes(app, auth, partnerUC)
+	RegisterDistributionRoutes(app, auth, distributionUC)
+	RegisterStatsRoutes(app, auth, statsUC)
 }
