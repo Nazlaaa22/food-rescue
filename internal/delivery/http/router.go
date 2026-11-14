@@ -15,7 +15,10 @@ func SetupRouter(app *fiber.App, cfg *config.Config, db *sql.DB) {
 	auth := middleware.AuthMiddleware(cfg.JWTSecret)
 	verified := middleware.RequireVerified(db)
 
-	// ===== Orang 1: user, auth, profile (tambahkan di sini) =====
+	// ===== Orang 1: user, auth, profile =====
+	userUC := usecase.NewUserUsecase(repository.NewUserRepository(db), cfg.JWTSecret)
+
+	RegisterUserRoutes(app, auth, userUC)
 
 	// ===== Orang 2: food_categories, donations, pickups =====
 	categoryUC := usecase.NewFoodCategoryUsecase(repository.NewFoodCategoryRepository(db))
