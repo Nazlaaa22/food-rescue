@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"errors"
 	"strings"
 
 	"food-rescue/internal/entity"
@@ -30,15 +29,15 @@ func (u *DonationLogUsecase) CreateLog(
 	status = strings.TrimSpace(status)
 
 	if donationID <= 0 {
-		return errors.New("ID donasi tidak valid")
+		return entity.NewDomainError(entity.ErrInvalid, "ID donasi tidak valid")
 	}
 
-	if status == "" {
-		return errors.New("status donasi tidak boleh kosong")
+	if !entity.IsValidDonationStatus(status) {
+		return entity.NewDomainError(entity.ErrInvalid, "status donasi tidak valid")
 	}
 
 	if changedBy <= 0 {
-		return errors.New("ID pengguna tidak valid")
+		return entity.NewDomainError(entity.ErrInvalid, "ID pengguna tidak valid")
 	}
 
 	log := &entity.DonationLog{
@@ -55,7 +54,7 @@ func (u *DonationLogUsecase) GetLogsByDonationID(
 	donationID int,
 ) ([]entity.DonationLog, error) {
 	if donationID <= 0 {
-		return nil, errors.New("ID donasi tidak valid")
+		return nil, entity.NewDomainError(entity.ErrInvalid, "ID donasi tidak valid")
 	}
 
 	return u.donationLogRepo.FindByDonationID(ctx, donationID)

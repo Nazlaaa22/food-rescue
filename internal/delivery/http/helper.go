@@ -5,24 +5,20 @@ import (
 	"log"
 
 	"food-rescue/internal/entity"
+	"food-rescue/pkg"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-// Helper balasan sementara untuk route Orang 2.
-// Kalau pkg/response.go milik Orang 3 sudah jadi, cukup ganti isi tiga fungsi ini.
+// Helper balasan untuk semua route. Format JSON-nya diatur di pkg/response.go
+// supaya seluruh endpoint memakai bentuk balasan yang sama.
 
 func respondOK(c *fiber.Ctx, status int, message string, data any) error {
-	return c.Status(status).JSON(fiber.Map{
-		"message": message,
-		"data":    data,
-	})
+	return pkg.Success(c, status, message, data)
 }
 
 func respondMessage(c *fiber.Ctx, status int, message string) error {
-	return c.Status(status).JSON(fiber.Map{
-		"message": message,
-	})
+	return pkg.Error(c, status, message)
 }
 
 // respondError memetakan error usecase ke status code HTTP.
@@ -30,6 +26,8 @@ func respondError(c *fiber.Ctx, err error) error {
 	switch {
 	case errors.Is(err, entity.ErrInvalid):
 		return respondMessage(c, fiber.StatusBadRequest, err.Error())
+	case errors.Is(err, entity.ErrUnauthorized):
+		return respondMessage(c, fiber.StatusUnauthorized, err.Error())
 	case errors.Is(err, entity.ErrForbidden):
 		return respondMessage(c, fiber.StatusForbidden, err.Error())
 	case errors.Is(err, entity.ErrNotFound):
