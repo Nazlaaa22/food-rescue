@@ -196,4 +196,4 @@ Contoh isi `data` dari `GET /admin/stats`:
 | ---------------------- | --------- | -------------------------------------------------- |
 | Nazlatul Khoiriyah     | 434241133 | Foundation, migration, autentikasi, donation logs  |
 | Abdullah Azzam         | 434241118 | Kategori makanan, donasi, pickup, role middleware  |
-| Abu (isi nama lengkap) | (isi NIM) | Mitra, distribusi, statistik, format response      |
+| Nailurrachman Baldan B | 434241121 | Mitra, distribusi, statistik, format response      |
