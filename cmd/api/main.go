@@ -13,6 +13,11 @@ func main() {
 	// Membaca konfigurasi aplikasi
 	cfg := config.LoadConfig()
 
+	// Tanpa JWT_SECRET, token bisa dipalsukan siapa saja. Lebih aman berhenti di awal.
+	if cfg.JWTSecret == "" {
+		log.Fatal("JWT_SECRET belum diisi di file .env")
+	}
+
 	// Menghubungkan aplikasi ke PostgreSQL
 	db, err := config.ConnectDatabase(cfg)
 	if err != nil {
